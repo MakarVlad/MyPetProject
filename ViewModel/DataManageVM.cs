@@ -6,5 +6,6 @@ namespace EngineerKA_1._0.ViewModel
 {
     class DataManageVM
     {
+
     }
 }

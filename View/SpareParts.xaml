@@ -1,0 +1,100 @@
+﻿<Window x:Class="EngineerKA_1._0.View.SpareParts"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EngineerKA_1._0.View"
+        mc:Ignorable="d"
+        Title="Запасные части" Height="450" Width="640"
+         Background="Moccasin">
+    
+    <Grid>
+       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="0"  >
+
+            <TabItem Name="CurrentTab" Background="Moccasin" >
+                <TabItem.Header>
+                    <TextBlock Text="В НАЛИЧИИ НА СКЛАДЕ"/>
+                </TabItem.Header>
+                <ListView Background="Azure">
+                    
+                    <ListView.View >
+                        <GridView  >
+                            <GridViewColumn Header="Код" />
+                            <GridViewColumn Header="Наименование"/>
+                            <GridViewColumn Header="Место хранения"/>
+                            <GridViewColumn Header="Единица измерения"/>
+                            <GridViewColumn Header="Колличество"/>
+                            <GridViewColumn Header="Цена"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="AdmissionTab" Background="Moccasin">
+                <TabItem.Header>
+                    <TextBlock Text="ПОСТУПИЛО НА СКЛАД"/>
+                </TabItem.Header>
+                <ListView Background="Azure">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Код"/>
+                            <GridViewColumn Header="Наименование"/>
+                            <GridViewColumn Header="Место хранения"/>
+                            <GridViewColumn Header="Единица измерения"/>
+                            <GridViewColumn Header="Колличество"/>
+                            <GridViewColumn Header="Цена"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="ReceivedTab" Background="Moccasin">
+                <TabItem.Header>
+                    <TextBlock Text="ПОЛУЧЕННО СО СКЛАДА"/>
+                </TabItem.Header>
+                <ListView Background="Azure">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Код"/>
+                            <GridViewColumn Header="Наименование"/>
+                            <GridViewColumn Header="Место хранения"/>
+                            <GridViewColumn Header="Единица измерения"/>
+                            <GridViewColumn Header="Колличество"/>
+                            <GridViewColumn Header="Цена"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="OutOfStockTab" Background="Moccasin">
+                <TabItem.Header>
+                    <TextBlock Text="ОТСУТСТВУЮТ НА СКЛАДЕ"/>
+                </TabItem.Header>
+                <ListView Background="Azure">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Код"/>
+                            <GridViewColumn Header="Наименование"/>
+                            <GridViewColumn Header="Место хранения"/>
+                            <GridViewColumn Header="Единица измерения"/>
+                            <GridViewColumn Header="Колличество"/>
+                            <GridViewColumn Header="Цена"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+        </TabControl>
+        <Button Grid.Row="1" Content="ЗАГРУЗИТЬ" FontSize="14"
+                Width="150" HorizontalAlignment="Left" Click="LoadButton_Click" />
+        <Button Grid.Row="1" Content="ОБНОВИТЬ" FontSize="14" 
+                Width="150" HorizontalAlignment="Right" Click="UpdateButton_Click"/>
+        <Button Grid.Row="1" Content="ПОИСК" FontSize="14"
+                Width="150" HorizontalAlignment="Center" Click="SearchButton_Click"/>
+    </Grid>
+</Window>

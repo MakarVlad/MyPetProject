@@ -23,7 +23,7 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/> 
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"

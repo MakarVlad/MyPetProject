@@ -38,7 +38,7 @@ namespace EngineerKA_1._0.View
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             UpdateWindow updateWindow = new UpdateWindow();
-            updateWindow.Show();
-        }
+            updateWindow.Show(); 
+        } 
     }
 }

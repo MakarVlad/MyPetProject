@@ -18,7 +18,7 @@ namespace EngineerKA_1._0.View
     public partial class SearchWindow : Window
     {
         public SearchWindow()
-        {
+        {   
             InitializeComponent();
         }
 

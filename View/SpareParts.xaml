@@ -87,7 +87,7 @@
                             <GridViewColumn Header="Цена"/>
                         </GridView>
                     </ListView.View>
-                </ListView>
+                </ListView> 
             </TabItem>
         </TabControl>
         <Button Grid.Row="1" Content="ЗАГРУЗИТЬ" FontSize="14"

@@ -30,5 +30,5 @@ namespace EngineerKA_1._0.View
             SpareParts spareParts = new SpareParts();
             spareParts.Show();
         }
-    }
+    } 
 }

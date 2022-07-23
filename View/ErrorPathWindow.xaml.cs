@@ -9,20 +9,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using EngineerKA_1._0.ViewModel;
 
 namespace EngineerKA_1._0.View
 {
     /// <summary>
-    /// Логика взаимодействия для LoadWindow.xaml
+    /// Логика взаимодействия для ErrorPathWindow.xaml
     /// </summary>
-    public partial class LoadWindow : Window
+    public partial class ErrorPathWindow : Window
     {
-        public LoadWindow()
+        public ErrorPathWindow()
         {
             InitializeComponent();
         }
-
-     
     }
 }

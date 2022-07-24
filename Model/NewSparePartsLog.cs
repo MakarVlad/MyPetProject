@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EngineerKA_1._0.Model
 {
-    class NewSparePartsLog
+    public class NewSparePartsLog
     {
         public int Id { get; set; }
         public string PartCode { get; set; }

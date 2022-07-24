@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EngineerKA_1._0.View"
         mc:Ignorable="d"
         Title="ОШИБКА!" Height="100" Width="350"
-        Background="Moccasin">
+        Background="Red">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EngineerKA_1._0.Model.Data
 {
-    class AppContext : DbContext
+    public class AppContext : DbContext
     {
         public DbSet<CurrentSparePartsLog> CurrentSpareParts { get; set; }
         public DbSet<NewSparePartsLog> NewSpareParts { get; set; }

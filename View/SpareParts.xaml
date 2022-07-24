@@ -21,16 +21,21 @@
                 <TabItem.Header>
                     <TextBlock Text="В НАЛИЧИИ НА СКЛАДЕ"/>
                 </TabItem.Header>
-                <ListView Background="Azure">
-                    
+                <ListView  ItemsSource="{Binding AllCurrentSpareParts}">
                     <ListView.View >
                         <GridView  >
-                            <GridViewColumn Header="Код" />
-                            <GridViewColumn Header="Наименование"/>
-                            <GridViewColumn Header="Место хранения"/>
-                            <GridViewColumn Header="Единица измерения"/>
-                            <GridViewColumn Header="Колличество"/>
-                            <GridViewColumn Header="Цена"/>
+                            <GridViewColumn Header="Код" 
+                                            DisplayMemberBinding="{Binding Path=PartCode}"/>
+                            <GridViewColumn Header="Наименование"
+                                             DisplayMemberBinding="{Binding Path=NamePart}"/>
+                            <GridViewColumn Header="Место хранения"
+                                            DisplayMemberBinding="{Binding Path=CellCode}"/>
+                            <GridViewColumn Header="Единица измерения"
+                                            DisplayMemberBinding="{Binding Path=UnitPart}"/>
+                            <GridViewColumn Header="Колличество"
+                                            DisplayMemberBinding="{Binding Path=Amount}"/>
+                            <GridViewColumn Header="Цена"
+                                            DisplayMemberBinding="{Binding Path=Price}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -76,10 +81,10 @@
                 <TabItem.Header>
                     <TextBlock Text="ОТСУТСТВУЮТ НА СКЛАДЕ"/>
                 </TabItem.Header>
-                <ListView Background="Azure">
+                <ListView Background="Azure" >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Код"/>
+                            <GridViewColumn  Header="Код" />
                             <GridViewColumn Header="Наименование"/>
                             <GridViewColumn Header="Место хранения"/>
                             <GridViewColumn Header="Единица измерения"/>
@@ -91,7 +96,8 @@
             </TabItem>
         </TabControl>
         <Button Grid.Row="1" Content="ЗАГРУЗИТЬ" FontSize="14"
-                Width="150" HorizontalAlignment="Left" Click="LoadButton_Click" />
+                Width="80" HorizontalAlignment="Left" Click="LoadButton_Click" />
+        
         <Button Grid.Row="1" Content="ОБНОВИТЬ" FontSize="14" 
                 Width="150" HorizontalAlignment="Right" Click="UpdateButton_Click"/>
         <Button Grid.Row="1" Content="ПОИСК" FontSize="14"

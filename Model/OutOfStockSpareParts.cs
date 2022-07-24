@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EngineerKA_1._0.Model
 {
-    class OutOfStockSpareParts
+    public class OutOfStockSpareParts
     {
         public int Id { get; set; }
         public string PartCode { get; set; }

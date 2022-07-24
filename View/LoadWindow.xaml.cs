@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using EngineerKA_1._0.ViewModel;
+using EngineerKA_1._0.Model;
 
 namespace EngineerKA_1._0.View
 {
@@ -18,11 +19,26 @@ namespace EngineerKA_1._0.View
     /// </summary>
     public partial class LoadWindow : Window
     {
+        public string LoadPath { get; set; }
         public LoadWindow()
         {
             InitializeComponent();
+         
+           // DataContext = LoadPath;
         }
 
-     
+        private void LoadOKButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPath = LoadTextBox.Text;
+            try
+              {
+                 DataWorker.CreateCurrentSparePartsFromTxtFile(LoadPath);
+              }
+            catch
+              {
+                ErrorPathWindow error = new ErrorPathWindow();
+                error.Show();
+              }
+        }
     }
 }

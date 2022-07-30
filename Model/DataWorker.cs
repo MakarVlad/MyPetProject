@@ -6,18 +6,18 @@ using EngineerKA_1._0.Model.Data;
 using EngineerKA_1._0.View;
 using System.IO;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace EngineerKA_1._0.Model
 {
     public class DataWorker
     {
-        //метод для загрузки данных из файла и заполнения таблицы  текущий журнал
-        public static void CreateCurrentSparePartsFromTxtFile(string path)
+        //метод для загрузки данных из файла и заполнения таблицы БД "текущий журнал"
+        public static async void CreateCurrentSparePartsFromTxtFileAsync(string path)
 
         {
 
-            using (StreamReader sr = new StreamReader(path) )
+            using (StreamReader sr = new StreamReader(path))
             {
 
                 string[] dateLine;
@@ -25,7 +25,7 @@ namespace EngineerKA_1._0.Model
 
                 using (Data.AppContext db = new Data.AppContext())
                 {
-                    while ((line = sr.ReadLine()) != null)
+                    while ((line = await sr.ReadLineAsync()) != null)
                     {
                         dateLine = line.Split('\t');
 

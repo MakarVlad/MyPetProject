@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EngineerKA_1._0.ViewModel;
 
 namespace EngineerKA_1._0.View
 {
@@ -23,12 +24,9 @@ namespace EngineerKA_1._0.View
         public MainWindow()
         { 
             InitializeComponent();
+            DataContext = new WindowOpenerVM();
         }
 
-        private void SPButton_Click(object sender, RoutedEventArgs e)
-        {
-            SpareParts spareParts = new SpareParts();
-            spareParts.Show();
-        }
+
     } 
 }

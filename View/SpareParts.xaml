@@ -96,11 +96,11 @@
             </TabItem>
         </TabControl>
         <Button Grid.Row="1" Content="ЗАГРУЗИТЬ" FontSize="14"
-                Width="80" HorizontalAlignment="Left" Click="LoadButton_Click" />
+                Width="80" HorizontalAlignment="Left" Command="{Binding OpenLoadWindow}" />
         
         <Button Grid.Row="1" Content="ОБНОВИТЬ" FontSize="14" 
-                Width="150" HorizontalAlignment="Right" Click="UpdateButton_Click"/>
+                Width="150" HorizontalAlignment="Right" Command="{Binding OpenUpdate}"/>
         <Button Grid.Row="1" Content="ПОИСК" FontSize="14"
-                Width="150" HorizontalAlignment="Center" Click="SearchButton_Click"/>
+                Width="150" HorizontalAlignment="Center" Command="{Binding OpenSearch}"/>
     </Grid>
 </Window>

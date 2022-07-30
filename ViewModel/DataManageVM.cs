@@ -31,6 +31,9 @@ namespace EngineerKA_1._0.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+
+       
     }
     
 }

@@ -28,27 +28,10 @@ namespace EngineerKA_1._0.View
         {
            
             InitializeComponent();
+            DataContext = new WindowOpenerVM();
             DataContext = new DataManageVM();
         }
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            SearchWindow searchWindow = new SearchWindow();
-            searchWindow.Show();
-        }
-
-        private void LoadButton_Click(object sender, RoutedEventArgs e)
-        {
-            LoadWindow loadWindow = new LoadWindow();
-            loadWindow.Show();
-          
-        }
-
-        private void UpdateButton_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateWindow updateWindow = new UpdateWindow();
-            updateWindow.Show(); 
-        }
-
+     
       
     }
 }

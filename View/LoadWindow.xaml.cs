@@ -32,7 +32,7 @@ namespace EngineerKA_1._0.View
             LoadPath = LoadTextBox.Text;
             try
               {
-                 DataWorker.CreateCurrentSparePartsFromTxtFile(LoadPath);
+                 DataWorker.CreateCurrentSparePartsFromTxtFileAsync(LoadPath);
               }
             catch
               {

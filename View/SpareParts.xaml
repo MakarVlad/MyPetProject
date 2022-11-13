@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:EngineerKA_1._0.View"
         mc:Ignorable="d"
         Title="Запасные части" Height="450" Width="640"
-         Background="Moccasin">
+         Background="Moccasin"
+        Name="SparePartsWindow">
     
     <Grid>
        
@@ -15,13 +16,14 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="0"  >
+        <TabControl Grid.Row="0"  SelectedItem="{Binding SelectedTab}"  >
 
             <TabItem Name="CurrentTab" Background="Moccasin" >
                 <TabItem.Header>
                     <TextBlock Text="В НАЛИЧИИ НА СКЛАДЕ"/>
                 </TabItem.Header>
-                <ListView  ItemsSource="{Binding AllCurrentSpareParts}">
+                <ListView x:Name="ViewCurrentParts"  ItemsSource="{Binding AllCurrentSpareParts}"
+                        SelectedItem="{Binding SelectedCurrentSPRecord}">
                     <ListView.View >
                         <GridView  >
                             <GridViewColumn Header="Код" 
@@ -45,15 +47,21 @@
                 <TabItem.Header>
                     <TextBlock Text="ПОСТУПИЛО НА СКЛАД"/>
                 </TabItem.Header>
-                <ListView Background="Azure">
+                <ListView x:Name="ViewAdmissionParts"  ItemsSource="{Binding AllAdmissionSpareParts}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Код"/>
-                            <GridViewColumn Header="Наименование"/>
-                            <GridViewColumn Header="Место хранения"/>
-                            <GridViewColumn Header="Единица измерения"/>
-                            <GridViewColumn Header="Колличество"/>
-                            <GridViewColumn Header="Цена"/>
+                            <GridViewColumn Header="Код"
+                                            DisplayMemberBinding="{Binding Path=PartCode}"/>
+                            <GridViewColumn Header="Наименование"
+                                            DisplayMemberBinding="{Binding Path=NamePart}"/>
+                            <GridViewColumn Header="Место хранения"
+                                            DisplayMemberBinding="{Binding Path=CellCode}"/>
+                            <GridViewColumn Header="Единица измерения"
+                                            DisplayMemberBinding="{Binding Path=UnitPart}"/>
+                            <GridViewColumn Header="Колличество"
+                                            DisplayMemberBinding="{Binding Path=Amount}"/>
+                            <GridViewColumn Header="Цена"
+                                            DisplayMemberBinding="{Binding Path=Price}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -61,17 +69,24 @@
 
             <TabItem Name="ReceivedTab" Background="Moccasin">
                 <TabItem.Header>
-                    <TextBlock Text="ПОЛУЧЕННО СО СКЛАДА"/>
+                    <TextBlock Text="ПОЛУЧЕННО СО СКЛАДА" />
                 </TabItem.Header>
-                <ListView Background="Azure">
+                <ListView Background="Azure" ItemsSource="{Binding AllReceivedSP}"
+                           x:Name="ViewReceivedParts">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Код"/>
-                            <GridViewColumn Header="Наименование"/>
-                            <GridViewColumn Header="Место хранения"/>
-                            <GridViewColumn Header="Единица измерения"/>
-                            <GridViewColumn Header="Колличество"/>
-                            <GridViewColumn Header="Цена"/>
+                            <GridViewColumn Header="Код"
+                                            DisplayMemberBinding="{Binding Path=PartCode}"/>
+                            <GridViewColumn Header="Наименование"
+                                           DisplayMemberBinding="{Binding Path=NamePart}" />
+                            <GridViewColumn Header="Место хранения"
+                                            DisplayMemberBinding="{Binding Path=CellCode}"/>
+                            <GridViewColumn Header="Единица измерения"
+                                            DisplayMemberBinding="{Binding Path=UnitPart}"/>
+                            <GridViewColumn Header="Колличество"
+                                            DisplayMemberBinding="{Binding Path=Amount}"/>
+                            <GridViewColumn Header="Цена"
+                                            DisplayMemberBinding="{Binding Path=Price}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -81,15 +96,22 @@
                 <TabItem.Header>
                     <TextBlock Text="ОТСУТСТВУЮТ НА СКЛАДЕ"/>
                 </TabItem.Header>
-                <ListView Background="Azure" >
+                <ListView Background="Azure"  ItemsSource="{Binding AllOutOfStock}"
+                           x:Name="ViewOutOfStock">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn  Header="Код" />
-                            <GridViewColumn Header="Наименование"/>
-                            <GridViewColumn Header="Место хранения"/>
-                            <GridViewColumn Header="Единица измерения"/>
-                            <GridViewColumn Header="Колличество"/>
-                            <GridViewColumn Header="Цена"/>
+                            <GridViewColumn  Header="Код" 
+                                          DisplayMemberBinding="{Binding Path=PartCode}"/>
+                            <GridViewColumn Header="Наименование"
+                                          DisplayMemberBinding="{Binding Path=NamePart}" />
+                            <GridViewColumn Header="Место хранения"
+                                          DisplayMemberBinding="{Binding Path=CellCode}"/>
+                            <GridViewColumn Header="Единица измерения"
+                                          DisplayMemberBinding="{Binding Path=UnitPart}"/>
+                            <GridViewColumn Header="Колличество"
+                                          DisplayMemberBinding="{Binding Path=Amount}"/>
+                            <GridViewColumn Header="Цена"
+                                          DisplayMemberBinding="{Binding Path=Price}"/>
                         </GridView>
                     </ListView.View>
                 </ListView> 
@@ -102,5 +124,7 @@
                 Width="150" HorizontalAlignment="Right" Command="{Binding OpenUpdate}"/>
         <Button Grid.Row="1" Content="ПОИСК" FontSize="14"
                 Width="150" HorizontalAlignment="Center" Command="{Binding OpenSearch}"/>
+        <Button Grid.Row="1" Content="УДАЛИТЬ" FontSize="14"
+                Width="100" HorizontalAlignment="Left" Margin="100,0,0,0" Command="{Binding DeleteAllDBRecords}"/>
     </Grid>
 </Window>

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:EngineerKA_1._0.View"
         mc:Ignorable="d"
         Title="ЗАГРУЗИТЬ ДАННЫЕ ИЗ ФАЙЛА" Height="250" Width="350"
-         Background="Moccasin">
+        Background="Moccasin"
+        Name="LoadFromFile">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/> 
@@ -16,9 +17,10 @@
         <TextBlock Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Top"
                    FontSize="16" >Укажите путь к файлу</TextBlock>
         <TextBox x:Name="LoadTextBox" Grid.Row="1" HorizontalAlignment="Center" Width="200"
-                 Height="20"  />
+                 Height="20" Text="{Binding Path = LoadPath}" />
         <Button Grid.Row="1" Height="20" Width="45" Content="ОК"
                 HorizontalAlignment="Right" Margin="10,10,10,10" 
-                Click="LoadOKButton_Click" />
+                Command="{Binding LoadOKButton}" CommandParameter="{Binding ElementName=LoadFromFile}" 
+                />
     </Grid>
 </Window>

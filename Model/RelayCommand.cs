@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace EngineerKA_1._0.Model
 {
-   public class RelayCommand: ICommand
+   public class RelayCommand:ICommand
         {
             private Action<object> _execute;
             private Func<object, bool> _canExecute;

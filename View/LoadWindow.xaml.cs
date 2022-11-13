@@ -19,26 +19,12 @@ namespace EngineerKA_1._0.View
     /// </summary>
     public partial class LoadWindow : Window
     {
-        public string LoadPath { get; set; }
+       // public string LoadPath { get; set; }
         public LoadWindow()
         {
-            InitializeComponent();
-         
-           // DataContext = LoadPath;
+           InitializeComponent();
+           DataContext = new LoadWindowVM();
         }
 
-        private void LoadOKButton_Click(object sender, RoutedEventArgs e)
-        {
-            LoadPath = LoadTextBox.Text;
-            try
-              {
-                 DataWorker.CreateCurrentSparePartsFromTxtFileAsync(LoadPath);
-              }
-            catch
-              {
-                ErrorPathWindow error = new ErrorPathWindow();
-                error.Show();
-              }
-        }
     }
 }

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using EngineerKA_1._0.ViewModel;
 
 namespace EngineerKA_1._0.View
 {
@@ -20,6 +21,7 @@ namespace EngineerKA_1._0.View
         public ErrorPathWindow()
         {
             InitializeComponent();
+            DataContext = new LoadWindowVM();//подумать над тем как правильно распределить !
         }
     }
 }

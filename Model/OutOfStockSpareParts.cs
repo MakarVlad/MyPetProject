@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace EngineerKA_1._0.Model
@@ -13,5 +14,6 @@ namespace EngineerKA_1._0.Model
         public string UnitPart { get; set; }
         public int Amount { get; set; }
         public decimal Price { get; set; }
+      
     }
 }

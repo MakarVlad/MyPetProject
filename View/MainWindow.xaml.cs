@@ -24,7 +24,7 @@ namespace EngineerKA_1._0.View
         public MainWindow()
         { 
             InitializeComponent();
-            DataContext = new WindowOpenerVM();
+            DataContext = new DataManageVM();
         }
 
 

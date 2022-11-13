@@ -21,15 +21,22 @@ namespace EngineerKA_1._0.View
     /// </summary>
     public partial class SpareParts : Window
     {
+        public static ListView CurrentSPView;
+        public static ListView AdmissionSPView;
+        public static ListView ReceivedSPView;
+        public static ListView OutOfStockView;
 
-       
 
         public SpareParts()
         {
            
+          
             InitializeComponent();
-            DataContext = new WindowOpenerVM();
             DataContext = new DataManageVM();
+            CurrentSPView = ViewCurrentParts;
+            AdmissionSPView = ViewAdmissionParts;
+            ReceivedSPView = ViewReceivedParts;
+            OutOfStockView = ViewOutOfStock;
         }
      
       

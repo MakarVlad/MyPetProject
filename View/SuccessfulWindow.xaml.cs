@@ -14,16 +14,14 @@ using EngineerKA_1._0.ViewModel;
 namespace EngineerKA_1._0.View
 {
     /// <summary>
-    /// Логика взаимодействия для SearchWindow.xaml
+    /// Логика взаимодействия для SuccessfulWindow.xaml
     /// </summary>
-    public partial class SearchWindow : Window
+    public partial class SuccessfulWindow : Window
     {
-        public SearchWindow()
-        {   
+        public SuccessfulWindow()
+        {
             InitializeComponent();
-            
+            //DataContext = new SuccessfulWindowVM();
         }
-
-      
     }
 }

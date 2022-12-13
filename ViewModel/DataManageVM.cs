@@ -6,6 +6,7 @@ using EngineerKA_1._0.Model;
 using System.ComponentModel;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace EngineerKA_1._0.ViewModel
 {
@@ -17,8 +18,19 @@ namespace EngineerKA_1._0.ViewModel
         private ObservableCollection<AdmissionSpareParts> _allAdmissionSpareParts = GetCollections.GetAllAdmissionSpareParts();
         private ObservableCollection<ReceivedSpareParts> _allReceivedSpareParts = GetCollections.GetAllReceivedSP();
         private ObservableCollection<OutOfStockSpareParts> _allOutOfStockSP = GetCollections.GetAllOutOfStock();
-
-
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        private RelayCommand _openSearch;
+        private RelayCommand _openSpareParts;
+        private RelayCommand _openLoadWindow;
+        private RelayCommand _openUpdate;
+        private RelayCommand _deleteAllDBRecords;
+        private string _path;
 
         public ObservableCollection<CurrentSparePartsLog> AllCurrentSpareParts
         {
@@ -59,6 +71,17 @@ namespace EngineerKA_1._0.ViewModel
                 NotifyPropertyChanged("AllReceivedSP");
             }
         }
+        public string LoadPath
+        {
+            get
+            {
+                return _path;
+            }
+            set
+            {
+                _path = value;
+            }
+        }
         public ObservableCollection<OutOfStockSpareParts> AllOutOfStock
         {
             get
@@ -73,31 +96,20 @@ namespace EngineerKA_1._0.ViewModel
             }
         }
         public ObservableCollection<CurrentSparePartsLog> NewLog = new ObservableCollection<CurrentSparePartsLog>();
-
-
+        public ObservableCollection<CurrentSparePartsLog> SparePartsLog = new ObservableCollection<CurrentSparePartsLog>();
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
 
-   
-           
-        
-        #region OPEN SPARE PARTS WINDOW
-        public void OpenSparePartsWindow()
-        {
-            SpareParts spareParts = new SpareParts();
-            spareParts.Show();
-          
-        }
+
+
+        //создать контекстное меню.
+        //сделать удаление выделенных элементов через пк мыши
+        //сделать поиск и выделение элентов запроса
      
-        private RelayCommand _openSpareParts;
+        //поработать над внешним видом 
+
+        #region OPEN SPARE PARTS WINDOW
         public RelayCommand OpenSpareParts
         {
             get
@@ -109,22 +121,14 @@ namespace EngineerKA_1._0.ViewModel
                 );
             }
         }
+        public void OpenSparePartsWindow()
+        {
+            SpareParts spareParts = new SpareParts();
+            spareParts.Show();
+          
+        }
         #endregion
         #region OPEN LOAD FROM FILE WINDOW
-        
-       
-        internal void OpenLoadFromFileWindow()
-        {
-            LoadWindow loadWindow = new LoadWindow();
-            loadWindow.ShowDialog();
-
-        }
-
-
-
-
-
-        private RelayCommand _openLoadWindow;
         public RelayCommand OpenLoadWindow
         {
             get
@@ -138,15 +142,22 @@ namespace EngineerKA_1._0.ViewModel
             }
 
         }
-        #endregion
-        #region OPEN SEARCH WINDOW
-        public void OpenSearchWindow()
+
+        internal void OpenLoadFromFileWindow()
         {
-            SearchWindow searchWindow = new SearchWindow();
-            searchWindow.ShowDialog();
+            LoadWindow loadWindow = new LoadWindow();
+            loadWindow.ShowDialog();
+
         }
 
-        private RelayCommand _openSearch;
+
+
+
+
+        //private RelayCommand _openLoadWindow;
+
+        #endregion
+        #region OPEN SEARCH WINDOW
         public RelayCommand OpenSearch
         {
             get
@@ -158,15 +169,13 @@ namespace EngineerKA_1._0.ViewModel
                 );
             }
         }
+        public void OpenSearchWindow()
+        {
+            SearchWindow searchWindow = new SearchWindow();
+            searchWindow.ShowDialog();
+        }
         #endregion
         #region OPEN UPDATE WINDOW
-        private void OpenUpdateWindow()
-        {
-            UpdateWindow updateWindow = new UpdateWindow();
-            updateWindow.ShowDialog();
-        }
-
-        private RelayCommand _openUpdate;
         public RelayCommand OpenUpdate
         {
             get
@@ -178,10 +187,13 @@ namespace EngineerKA_1._0.ViewModel
                 );
             }
         }
+        private void OpenUpdateWindow()
+        {
+            UpdateWindow updateWindow = new UpdateWindow();
+            updateWindow.ShowDialog();
+        }
         #endregion
-
         #region DELETE ALL RECORDS IN DB  
-        private RelayCommand _deleteAllDBRecords;
         public RelayCommand DeleteAllDBRecords
         {
             get
@@ -189,8 +201,7 @@ namespace EngineerKA_1._0.ViewModel
                 return _deleteAllDBRecords ?? new RelayCommand(obj =>
                 {
                     UpdateALLRecordsView();
-                    Remover.DeleteALLDataBaseRecords(AllCurrentSpareParts, AllAdmissionSpareParts,
-                                                         AllReceivedSP, AllOutOfStock);
+                    Remover.RemoveAll(AllCurrentSpareParts, AllReceivedSP, AllAdmissionSpareParts, AllOutOfStock);
                     UpdateALLRecordsView();
                     OpenSuccessfullDeleteRecordsWindow();
                 } );
@@ -198,7 +209,6 @@ namespace EngineerKA_1._0.ViewModel
             }
            
         }
-
         private void OpenSuccessfullDeleteRecordsWindow()
         {
             MessageBox.Show
@@ -221,6 +231,7 @@ namespace EngineerKA_1._0.ViewModel
             SpareParts.AdmissionSPView.ItemsSource = AllAdmissionSpareParts;
             SpareParts.ReceivedSPView.ItemsSource = AllReceivedSP;
             SpareParts.OutOfStockView.ItemsSource = AllOutOfStock;
+            
 
         }
         #endregion

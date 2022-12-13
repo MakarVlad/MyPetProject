@@ -21,7 +21,8 @@ namespace EngineerKA_1._0.View
         public SearchWindow()
         {   
             InitializeComponent();
-            
+            DataContext = new SearcherVM();
+
         }
 
       

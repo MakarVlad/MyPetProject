@@ -3,51 +3,81 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EngineerKA_1._0.Model
 {
     public class AddInDb
     {
         public static void CompareCollections(ObservableCollection<CurrentSparePartsLog> AllCurrentSpareParts,
-                                              ObservableCollection<CurrentSparePartsLog> NewLog)
+                                              ObservableCollection<CurrentSparePartsLog> NewLog,
+                                              ObservableCollection<CurrentSparePartsLog>SparePartsLog,string _log)
         {
-            var missingInNewlog = AllCurrentSpareParts.Except(NewLog).ToList();
-            var missingInCurrentLog = NewLog.Except(AllCurrentSpareParts).ToList();
-            var listCurrentLog = AllCurrentSpareParts.ToList();
-            if (missingInCurrentLog.Count != 0)
+            if(_log == "SparePartsLog")
             {
-                foreach (CurrentSparePartsLog rec in missingInCurrentLog)
+                AddSparePartsLog(SparePartsLog);
+            }
+            if (_log == "NewLog")
+            {
+                var missingInNewlog = AllCurrentSpareParts.Except(NewLog).ToList();
+                var missingInCurrentLog = NewLog.Except(AllCurrentSpareParts).ToList();
+                var listCurrentLog = AllCurrentSpareParts.ToList();
+                if (missingInCurrentLog.Count != 0)
                 {
-                    CurrentSparePartsLog found = listCurrentLog.Find(item => item.NamePart == rec.NamePart);
-                    if (found != null)
+                    foreach (CurrentSparePartsLog rec in missingInCurrentLog)
                     {
-                        if (found.Amount > rec.Amount)
+                        CurrentSparePartsLog found = listCurrentLog.Find(item => item.NamePart.Equals(rec.NamePart)
+                                                                                 && item.CellCode.Equals(rec.CellCode));
+                        if (found != null)
                         {
-                            AddOnlyInReceived(rec);
+                            if (found.Amount > rec.Amount)
+                            {
+                             AddOnlyInReceived(rec);
+                            }
+                            if (found.Amount < rec.Amount)
+                            {
+                             AddInAdmission(rec);
+                            }
                         }
-                        if (found.Amount < rec.Amount)
+                        if (found == null)
                         {
-                            AddInAdmission(rec);
+
+                         AddInAdmission(rec);
                         }
                     }
-                    if (found == null)
+                }
+                if (missingInCurrentLog.Count == 0 || missingInCurrentLog.Count < missingInNewlog.Count || missingInCurrentLog.Count == missingInNewlog.Count)
+                {
+                    foreach (CurrentSparePartsLog rec in missingInNewlog)
                     {
+                        CurrentSparePartsLog found = missingInCurrentLog.Find(item => item.NamePart == rec.NamePart
+                                                                                      && item.CellCode == item.CellCode);
+                        if (missingInCurrentLog.Count == 0 || found == null)
+                        {
 
-                        AddInAdmission(rec);
+                         AddInReceivedAndOutOfStock(rec);
+                        }
                     }
                 }
             }
-            if (missingInCurrentLog.Count == 0 || missingInCurrentLog.Count < missingInNewlog.Count || missingInCurrentLog.Count == missingInNewlog.Count)
-            {
-                foreach (CurrentSparePartsLog rec in missingInNewlog)
-                {
-                    CurrentSparePartsLog found = missingInCurrentLog.Find(item => item.NamePart.Equals(rec.NamePart));
-                    if (missingInCurrentLog.Count == 0 || found == null)
-                    {
+        }
 
-                        AddInReceivedAndOutOfStock(rec);
+        private static void AddSparePartsLog(ObservableCollection<CurrentSparePartsLog> SparePartsLog)
+        {
+            using(Data.AppContext db = new Data.AppContext())
+            {
+                foreach (CurrentSparePartsLog SP in SparePartsLog)
+                {
+                    bool recordExist = db.CurrentSpareParts.Any(rec => rec.PartCode == SP.PartCode
+                                                                           && rec.NamePart == SP.NamePart
+                                                                           && rec.CellCode == SP.CellCode
+                                                                           && rec.Amount == SP.Amount);
+                    if (!recordExist)
+                    {
+                        db.CurrentSpareParts.Add(SP);
                     }
                 }
+                db.SaveChanges();
             }
         }
         private static void AddInAdmission(CurrentSparePartsLog currentSpare)
@@ -60,14 +90,21 @@ namespace EngineerKA_1._0.Model
                     NamePart = currentSpare.NamePart,
                     CellCode = currentSpare.CellCode,
                     UnitPart = currentSpare.UnitPart,
-                    Amount = currentSpare.Amount
-
+                    Amount = currentSpare.Amount,
+                    Price = currentSpare.Price
                 };
                 foreach (CurrentSparePartsLog currentSP in db.CurrentSpareParts)
                 {
-                    if (admissionSpare.NamePart == currentSP.NamePart)
+                    if (admissionSpare.NamePart == currentSP.NamePart && admissionSpare.CellCode == currentSP.CellCode)
                     {
-                        currentSP.PriceForOne = currentSP.Price / currentSP.Amount;
+                        if (currentSP.Amount != 0 && currentSP.Price != 0)
+                        {
+                            currentSP.PriceForOne = currentSP.Price / currentSP.Amount;
+                        }
+                        else
+                        {
+                            currentSP.PriceForOne = currentSP.Price;
+                        }
                         admissionSpare.Amount = currentSpare.Amount - currentSP.Amount;
                         currentSP.Amount = currentSpare.Amount;
                         currentSP.Price = currentSpare.Price;
@@ -131,9 +168,16 @@ namespace EngineerKA_1._0.Model
 
                 foreach (CurrentSparePartsLog currentSP in db.CurrentSpareParts)
                 {
-                    if (receivedSpareParts.NamePart == currentSP.NamePart)
+                    if (receivedSpareParts.NamePart == currentSP.NamePart && receivedSpareParts.CellCode == currentSP.CellCode)
                     {
-                        currentSP.PriceForOne = currentSP.Price / currentSP.Amount;
+                        if (currentSP.Amount != 0 && currentSP.Price != 0)
+                        {
+                            currentSP.PriceForOne = currentSP.Price / currentSP.Amount;
+                        }
+                        else
+                        {
+                            currentSP.PriceForOne = currentSP.Price;
+                        }
                         receivedSpareParts.Amount = currentSP.Amount - currentSpare.Amount;
                         currentSP.Amount -= receivedSpareParts.Amount;
                         currentSP.Price = currentSpare.Price;
@@ -144,5 +188,6 @@ namespace EngineerKA_1._0.Model
                 db.SaveChanges();
             }
         }
+        
     }
 }

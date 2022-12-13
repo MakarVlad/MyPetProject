@@ -1,62 +1,65 @@
-﻿using System;
+﻿using EngineerKA_1._0.Model.Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+
+
 
 namespace EngineerKA_1._0.Model
 {
      public class FileReader
-    {
-        public static void ReadTxtFile(string _path, string _log, ObservableCollection<CurrentSparePartsLog> NewLog)
+     {
+        public  static void ReadTxtFile(string _path, string _log, ObservableCollection<CurrentSparePartsLog> SparePartsLog, ObservableCollection<CurrentSparePartsLog> NewLog)
 
         {
-            using (StreamReader sr = new StreamReader(_path, Encoding.Unicode))
+            using ( StreamReader sr = new StreamReader(_path, Encoding.GetEncoding(1251)))
             {
                 string[] dataLine;
                 string line;
-
-                using (Data.AppContext db = new Data.AppContext())
+                while ((line = sr.ReadLine()) != null)
                 {
-
-                    while ((line = sr.ReadLine()) != null)
-                    {
                         CurrentSparePartsLog currentSparePartsLog = new CurrentSparePartsLog();
-
+                        bool _skip = false;
                         dataLine = line.Split('\t');
-                        if (_log == "CurrentLog" && dataLine[0] != "")
+                        if ( dataLine[0] != "")
                         {
-                            currentSparePartsLog.PartCode = dataLine[0];
-                            currentSparePartsLog.NamePart = dataLine[1];
-                            currentSparePartsLog.CellCode = dataLine[2];
-                            currentSparePartsLog.UnitPart = dataLine[3];
-                            currentSparePartsLog.Amount = int.Parse(dataLine[4]);
-                            currentSparePartsLog.Price = decimal.Parse(dataLine[5]);
-
-                            bool recordExist = db.CurrentSpareParts.Any(rec => rec.PartCode == currentSparePartsLog.PartCode
-                                                                                            && rec.NamePart == currentSparePartsLog.NamePart
-                                                                                            && rec.CellCode == currentSparePartsLog.CellCode
-                                                                                            && rec.Amount == currentSparePartsLog.Amount);
-                            if (!recordExist)
+                          try
+                          {
+                                currentSparePartsLog.PartCode = dataLine[0];
+                                currentSparePartsLog.NamePart = dataLine[1];
+                                currentSparePartsLog.CellCode = dataLine[4];
+                                currentSparePartsLog.UnitPart = dataLine[5];
+                            if (int.Parse(dataLine[6]) != 0 && decimal.Parse(dataLine[7]) > 0)
                             {
-                                db.CurrentSpareParts.Add(currentSparePartsLog);
+                                currentSparePartsLog.Amount = int.Parse(dataLine[6]);
+                                currentSparePartsLog.Price = decimal.Parse(dataLine[7]);
+                            }
+                            else _skip = true; 
+                            if (_log == "SparePartsLog" && _skip == false)
+                            {
+                           
+                                SparePartsLog.Add(currentSparePartsLog);
+                              
+                            }
+                          }
+                          catch (FormatException)
+                          { 
+                            InvalidDataLog.WriteInvalidDataInTxtFile(currentSparePartsLog);
+                            _skip = true;
+                          }
+                         
+                            if(_log == "NewLog" && _skip == false)
+                            {
+                                NewLog.Add(currentSparePartsLog);
                             }
                         }
-                        if (_log == "NewLog" && dataLine[0] != "")
-                        {
-                            currentSparePartsLog.PartCode = dataLine[0];
-                            currentSparePartsLog.NamePart = dataLine[1];
-                            currentSparePartsLog.CellCode = dataLine[2];
-                            currentSparePartsLog.UnitPart = dataLine[3];
-                            currentSparePartsLog.Amount = int.Parse(dataLine[4]);
-                            currentSparePartsLog.Price = decimal.Parse(dataLine[5]);
-                            NewLog.Add(currentSparePartsLog);
-                        }
-                    }
-                    db.SaveChanges();
                 }
             }
         }
-    }
+     }
 }

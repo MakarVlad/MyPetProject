@@ -6,76 +6,49 @@ using EngineerKA_1._0.View;
 using System.Windows;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace EngineerKA_1._0.ViewModel
 {
  
     public class LoadWindowVM:DataManageVM
     {
-        public string LoadPath
-        {
-            get
-            {
-                return _path;
-            }
-            set
-            {
-                _path = value;
-            }
-        }
-        private string _path;
-
         private RelayCommand _loadОКButton;
-        public RelayCommand LoadOKButton
+        public  RelayCommand LoadOKButton
         {
             get
             {
                 return _loadОКButton ?? new RelayCommand(obj =>
                 {
-                    Window LoadFromFile = obj as Window;
-
-                    try
-                    { 
-                        string _log = "CurrentLog";
-                        FileReader.ReadTxtFile(_path, _log, NewLog);
-                        OpenSuccessfulWindow();
-                        LoadFromFile.Close();
+                   
+                    string _log = "SparePartsLog";
+                    if (LoadPath != null && LoadPath.Contains(".txt"))
+                    {
+                        try
+                        {
+                            FileReader.ReadTxtFile(LoadPath, _log, SparePartsLog, NewLog);
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            MessageBoxHandler.ShowMessageBox("Ошибка загрузки данных из файла!" +
+                                              "\nПроверьте корректность указаного пути или содержимого файла! ",
+                                               "Ошибка!",
+                                               MessageBoxButton.OK , MessageBoxImage.Error);
+                            return;
+                        }
+                        AddInDb.CompareCollections(AllCurrentSpareParts, NewLog, SparePartsLog, _log);
+                        MessageBoxHandler.ShowMessageBox("Загрузка данных из файла прошла успешно!",
+                                                         "Сообщение",
+                                                          MessageBoxButton.OK, MessageBoxImage.Information);
                         UpdateALLRecordsView();
                     }
-                    catch(Exception e)
-                    {
-                        OpenErrorWindow(e);
-                    }
-                }
-                );
+                    else MessageBoxHandler.ShowMessageBox("Ошибка загрузки данных из файла!" +
+                                             "\nПроверьте корректность указаного пути или содержимого файла! ",
+                                              "Ошибка!",
+                                              MessageBoxButton.OK, MessageBoxImage.Error);
+                });
+                
             }
         }
-      
-        private void OpenErrorWindow(Exception e)
-        {
-            MessageBox.Show
-                 (
-                   "Ошибка загрузки данных из файла! " +
-                   "\n Проверьте корректность указаного пути или содержимого файла! Подробнее: " + ( e.Message),
-                   "Ошибка!" , 
-                   MessageBoxButton.OK, MessageBoxImage.Error
-
-                 );
-        }
-      
-        private void OpenSuccessfulWindow()
-        {
-          MessageBox.Show
-                (
-                  "Загрузка данных из файла прошла успешно!",
-                  "Сообщение",
-                  MessageBoxButton.OK,MessageBoxImage.Information
-                  
-                );
-           
-
-        }
-
-    
     }
 }

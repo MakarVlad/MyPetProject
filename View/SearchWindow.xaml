@@ -6,36 +6,34 @@
         xmlns:local="clr-namespace:EngineerKA_1._0.View"
         mc:Ignorable="d"
         Title="ПОИСК" Height="250" Width="350"
-         Background="Moccasin">
+          Background="#8bc9a3">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/> 
-            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center"
-                   Margin="10,10,10,10" FontSize="16" > Поиск</TextBlock>
-        <TextBox Grid.Row="1" HorizontalAlignment="Center" Width="210"
-                  Height="20" Margin="10,10,10,10" Text="{Binding SearchString}" />
-        <Button Grid.Row="1" Height="35" Width="45" Content="Искать"
-                HorizontalAlignment="Right" Margin="10,10,10,10" Command="{Binding SearchButton}" />
-        <ListView x:Name="ViewSearchResult"  ItemsSource="{Binding SearchResult}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Код"
-                                            DisplayMemberBinding="{Binding Path=PartCode}"/>
-                    <GridViewColumn Header="Наименование"
-                                            DisplayMemberBinding="{Binding Path=NamePart}"/>
-                    <GridViewColumn Header="Место хранения"
-                                            DisplayMemberBinding="{Binding Path=CellCode}"/>
-                    <GridViewColumn Header="Единица измерения"
-                                            DisplayMemberBinding="{Binding Path=UnitPart}"/>
-                    <GridViewColumn Header="Колличество"
-                                            DisplayMemberBinding="{Binding Path=Amount}"/>
-                    <GridViewColumn Header="Цена"
-                                            DisplayMemberBinding="{Binding Path=Price}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <TextBox Grid.Row="0" HorizontalAlignment="Left" Width="180"
+                  Height="20" Margin="10,10,10,0" Text="{Binding SearchString}" />
+        <Button Grid.Row="0" Height="20" Width="45" Content="ОК"
+                HorizontalAlignment="Left" Margin="150,20,10,10" Command="{Binding SearchButton}"/>
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" x:Name="ViewSearchResult" ItemsSource ="{Binding  SearchResult}"
+                  SelectedItem="{Binding Selected}">
+            <DataGrid.Columns >
+               
+                    <DataGridTextColumn 
+                                    Binding="{Binding Path=PartCode}"/>
+                    <DataGridTextColumn 
+                                    Binding="{Binding Path=NamePart}"/>
+                    <DataGridTextColumn 
+                                    Binding="{Binding Path=CellCode}"/>
+                    <DataGridTextColumn 
+                                    Binding="{Binding Path=UnitPart}"/>
+                    <DataGridTextColumn 
+                                    Binding="{Binding Path=Amount}"/>
+                    <DataGridTextColumn 
+                                    Binding="{Binding Path=Price}"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

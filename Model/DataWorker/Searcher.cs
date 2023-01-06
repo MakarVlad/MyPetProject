@@ -10,11 +10,12 @@ namespace EngineerKA_1._0.Model.DataWorker
   {
         public static void Search(string _searchString, ObservableCollection<CurrentSparePartsLog>AllCurrentSpareParts, ObservableCollection<CurrentSparePartsLog>SearchResult)
         {
-         
+          
             foreach (CurrentSparePartsLog sparePart in AllCurrentSpareParts)
             {
 
-                if (sparePart.NamePart.Contains(_searchString))
+                if (sparePart.NamePart.ToLower().Contains(_searchString) ||
+                    sparePart.PartCode.ToLower().Contains(_searchString))
                 {
                     SearchResult.Add(sparePart);
                 }

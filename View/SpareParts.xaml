@@ -5,45 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineerKA_1._0.View"
         mc:Ignorable="d"
-        Title="Запасные части" Height="450" Width="640"
-         Background="Moccasin"
+        Title="Запасные части" Height="450" Width="740"
+        Background="#8bc9a3"
         Name="SparePartsWindow">
-    
+    <Window.Resources>
+        <ControlTemplate x:Key="Buttons" TargetType="Button">
+            <Grid Name ="btn" Height="45">
+                <Border>
+                    <StackPanel Orientation="Horizontal">
+
+                        <Image Source="{DynamicResource ResourceKey=img}"
+                               VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                               Height="25" Width="25" Stretch="Fill" Margin="20,0,0,12"/>
+                        <Label Content="{TemplateBinding Content}" Background="Transparent"
+                               VerticalAlignment="Bottom"  FontSize="23"
+                               FontFamily="Comic Sans MS" FontWeight="UltraBold">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver,ElementName=btn}" Value="True">
+                                            <Setter Property="Foreground" Value="Gray"/>
+                                        </DataTrigger>
+
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+
+                        </Label>
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
        
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-
+      
         <TabControl Grid.Row="0"  SelectedItem="{Binding SelectedTab}"  >
 
-            <TabItem Name="CurrentTab" Background="Moccasin" >
+            <TabItem Name="CurrentTab" Background="#8bc9a3" >
                 <TabItem.Header>
                     <TextBlock Text="В НАЛИЧИИ НА СКЛАДЕ"/>
                 </TabItem.Header>
-                <ListView x:Name="ViewCurrentParts"  ItemsSource="{Binding AllCurrentSpareParts}"
-                        SelectedItem="{Binding SelectedCurrentSPRecord}">
-                    <ListView.View >
-                        <GridView  >
-                            <GridViewColumn Header="Код" 
-                                            DisplayMemberBinding="{Binding Path=PartCode}"/>
-                            <GridViewColumn Header="Наименование"
-                                             DisplayMemberBinding="{Binding Path=NamePart}"/>
-                            <GridViewColumn Header="Место хранения"
-                                            DisplayMemberBinding="{Binding Path=CellCode}"/>
-                            <GridViewColumn Header="Единица измерения"
-                                            DisplayMemberBinding="{Binding Path=UnitPart}"/>
-                            <GridViewColumn Header="Колличество"
-                                            DisplayMemberBinding="{Binding Path=Amount}"/>
-                            <GridViewColumn Header="Цена"
-                                            DisplayMemberBinding="{Binding Path=Price}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <DataGrid  AutoGenerateColumns="False" CanUserAddRows="False" x:Name="ViewCurrentParts" ItemsSource ="{Binding  AllCurrentSpareParts}"
+                  SelectedItem="{Binding Selected}"
+                  >
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="BlueViolet"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Columns >
+
+                        <DataGridTextColumn Header="Код"
+                                    Binding="{Binding Path=PartCode}"/>
+                        <DataGridTextColumn Header="Наименование"
+                                    Binding="{Binding Path=NamePart}"/>
+                        <DataGridTextColumn Header="Место хранения"
+                                    Binding="{Binding Path=CellCode}"/>
+                        <DataGridTextColumn Header="Единица измерения"
+                                    Binding="{Binding Path=UnitPart}"/>
+                        <DataGridTextColumn Header="Колличество"
+                                    Binding="{Binding Path=Amount}"/>
+                        <DataGridTextColumn Header="Цена"
+                                    Binding="{Binding Path=Price}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
 
-            <TabItem Name="AdmissionTab" Background="Moccasin">
+            <TabItem Name="AdmissionTab" Background="#8bc9a3">
                 <TabItem.Header>
                     <TextBlock Text="ПОСТУПИЛО НА СКЛАД"/>
                 </TabItem.Header>
@@ -67,7 +110,7 @@
                 </ListView>
             </TabItem>
 
-            <TabItem Name="ReceivedTab" Background="Moccasin">
+            <TabItem Name="ReceivedTab" Background="#8bc9a3">
                 <TabItem.Header>
                     <TextBlock Text="ПОЛУЧЕННО СО СКЛАДА" />
                 </TabItem.Header>
@@ -92,11 +135,11 @@
                 </ListView>
             </TabItem>
 
-            <TabItem Name="OutOfStockTab" Background="Moccasin">
+            <TabItem Name="OutOfStockTab" Background="#8bc9a3">
                 <TabItem.Header>
                     <TextBlock Text="ОТСУТСТВУЮТ НА СКЛАДЕ"/>
                 </TabItem.Header>
-                <ListView Background="Azure"  ItemsSource="{Binding AllOutOfStock}"
+                <ListView Background="Azure" ItemsSource="{Binding AllOutOfStock}"
                            x:Name="ViewOutOfStock">
                     <ListView.View>
                         <GridView>
@@ -117,14 +160,34 @@
                 </ListView> 
             </TabItem>
         </TabControl>
-        <Button Grid.Row="1" Content="ЗАГРУЗИТЬ" FontSize="14"
-                Width="80" HorizontalAlignment="Left" Command="{Binding OpenLoadWindow}" />
-        
-        <Button Grid.Row="1" Content="ОБНОВИТЬ" FontSize="14" 
-                Width="150" HorizontalAlignment="Right" Command="{Binding OpenUpdate}"/>
-        <Button Grid.Row="1" Content="ПОИСК" FontSize="14"
-                Width="150" HorizontalAlignment="Center" Command="{Binding OpenSearch}"/>
-        <Button Grid.Row="1" Content="УДАЛИТЬ" FontSize="14"
-                Width="100" HorizontalAlignment="Left" Margin="100,0,0,0" Command="{Binding DeleteAllDBRecords}"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+
+            <Button  Name="Load" Content="Загрузить отчёт"  Template="{StaticResource ResourceKey=Buttons}"
+                             Command="{Binding OpenLoadWindow}">
+                <Button.Resources>
+                    <ImageSource x:Key="img">/Images/icons/dawnload.png</ImageSource>
+                </Button.Resources>
+            </Button>
+            <Button Name ="Update"  Content="Обновить" Template="{StaticResource ResourceKey=Buttons}"
+                              Command="{Binding OpenUpdate}">
+                <Button.Resources>
+                    <ImageSource x:Key="img">/Images/icons/update.png</ImageSource>
+                </Button.Resources>
+            </Button>
+            <Button Name="Search" Content="Искать" Template="{StaticResource ResourceKey=Buttons}"
+                             Command="{Binding OpenSearch}">
+                <Button.Resources>
+                    <ImageSource x:Key="img">/Images/icons/search.png</ImageSource>
+                </Button.Resources>
+            </Button>
+            <Button Name="Delete" Content="Удалить" Template="{StaticResource ResourceKey=Buttons}"
+                             Command="{Binding DeleteAllDBRecords}">
+                <Button.Resources>
+                    <ImageSource x:Key="img">/Images/icons/delete.png</ImageSource>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    
     </Grid>
 </Window>

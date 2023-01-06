@@ -18,7 +18,7 @@ namespace EngineerKA_1._0.ViewModel
         private ObservableCollection<AdmissionSpareParts> _allAdmissionSpareParts = GetCollections.GetAllAdmissionSpareParts();
         private ObservableCollection<ReceivedSpareParts> _allReceivedSpareParts = GetCollections.GetAllReceivedSP();
         private ObservableCollection<OutOfStockSpareParts> _allOutOfStockSP = GetCollections.GetAllOutOfStock();
-        private void NotifyPropertyChanged(string propertyName)
+        public void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
@@ -172,7 +172,7 @@ namespace EngineerKA_1._0.ViewModel
         public void OpenSearchWindow()
         {
             SearchWindow searchWindow = new SearchWindow();
-            searchWindow.ShowDialog();
+            searchWindow.Show();
         }
         #endregion
         #region OPEN UPDATE WINDOW

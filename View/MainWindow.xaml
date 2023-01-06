@@ -5,36 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineerKA_1._0.View"
         mc:Ignorable="d"
-        Title="Главная" Height="450" Width="600"
+        Height="400" Width="450"
        
-        Background="Moccasin">
+         Background="#8bc9a3" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
 
-    
-   
+
+    <Window.Resources>
+        <ControlTemplate x:Key="Buttons" TargetType="Button">
+            <Grid Name ="btn" Height="75">
+                <Border>
+                    <StackPanel Orientation="Horizontal">
+
+                        <Image Source="{DynamicResource ResourceKey=img}"
+                               VerticalAlignment="Center" HorizontalAlignment="Left"
+                               Height="35" Width="35" Stretch="Fill" Margin="20,0,0,0"/>
+                        <Label Content="{TemplateBinding Content}" Background="Transparent"
+                               VerticalAlignment="Center" FontSize="23"
+                               FontFamily="Comic Sans MS" FontWeight="UltraBold">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver,ElementName=btn}" Value="True">
+                                            <Setter Property="Foreground" Value="Gray"/>
+                                        </DataTrigger>
+
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                            
+                        </Label>
+
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
    
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/background.png"></ImageBrush>
+        <Grid.Background >
+            <ImageBrush  ImageSource="/Images/icons/gear.png"></ImageBrush>
         </Grid.Background>
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="130"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="40"/> 
-        </Grid.RowDefinitions>
-        
-        <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   FontSize="50">
-            Добро пожаловать!
-        </TextBlock>
+        <Grid  HorizontalAlignment="Left" VerticalAlignment="Center">
+            
+                
+            
+           
+            <StackPanel>
 
-        <Button Grid.Row="1" Name="SpareParts" Content="Запасные части" FontSize="16" Width="160"
-                             Command="{Binding OpenSpareParts}"/>
-        <Button Grid.Row="3" Content="Виртуальный склад" FontSize ="16" Width="160"/>
-        <Button Grid.Row="5" Content="Статистика" FontSize ="16" Width="160"/>
+                <Button  Name="SpareParts" Content="Запасные части"  Template="{StaticResource ResourceKey=Buttons}"
+                             Command="{Binding OpenSpareParts}">
+                    <Button.Resources>
+                        <ImageSource x:Key="img">/Images/icons/spareparts.png</ImageSource>
+                    </Button.Resources>
+                </Button>
+                <Button  Content="Виртуальный склад" Template="{StaticResource ResourceKey=Buttons}">
+                    <Button.Resources>
+                    <ImageSource x:Key="img">/Images/icons/warehouse.png</ImageSource>
+                    </Button.Resources>
+                </Button>
+                <Button Content="Статистика" Template="{StaticResource ResourceKey=Buttons}">
+                    <Button.Resources>
+                        <ImageSource x:Key="img">/Images/icons/stats.png</ImageSource>
+                    </Button.Resources>
+                </Button>  
+            </StackPanel>
+        </Grid>
+      
+        
+       
     </Grid>
      
 </Window>

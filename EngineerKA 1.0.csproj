@@ -8,8 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\background.png" />
-    <None Remove="Images\sparepartsbackground.png" />
+    <None Remove="Images\icons\dawnload.png" />
+    <None Remove="Images\icons\delete.png" />
+    <None Remove="Images\icons\gear.png" />
+    <None Remove="Images\icons\search.png" />
+    <None Remove="Images\icons\spareparts.png" />
+    <None Remove="Images\icons\stats.png" />
+    <None Remove="Images\icons\update.png" />
+    <None Remove="Images\icons\warehouse.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,8 +27,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\background.png" />
-    <Resource Include="Images\sparepartsbackground.png" />
+    <Resource Include="Images\icons\dawnload.png" />
+    <Resource Include="Images\icons\delete.png" />
+    <Resource Include="Images\icons\gear.png" />
+    <Resource Include="Images\icons\search.png" />
+    <Resource Include="Images\icons\spareparts.png" />
+    <Resource Include="Images\icons\stats.png" />
+    <Resource Include="Images\icons\update.png" />
+    <Resource Include="Images\icons\warehouse.png" />
   </ItemGroup>
 
 </Project>

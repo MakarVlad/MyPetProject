@@ -18,6 +18,15 @@ namespace EngineerKA_1._0.ViewModel
         private ObservableCollection<AdmissionSpareParts> _allAdmissionSpareParts = GetCollections.GetAllAdmissionSpareParts();
         private ObservableCollection<ReceivedSpareParts> _allReceivedSpareParts = GetCollections.GetAllReceivedSP();
         private ObservableCollection<OutOfStockSpareParts> _allOutOfStockSP = GetCollections.GetAllOutOfStock();
+        private CurrentSparePartsLog _selected;
+        private RelayCommand _openSearch;
+        private RelayCommand _openSpareParts;
+        private RelayCommand _openLoadWindow;
+        private RelayCommand _openUpdate;
+        private RelayCommand _openDeleteWindow;
+        private string _path;
+        private static int _indexSelectedTab;
+
         public void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -25,13 +34,7 @@ namespace EngineerKA_1._0.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        private RelayCommand _openSearch;
-        private RelayCommand _openSpareParts;
-        private RelayCommand _openLoadWindow;
-        private RelayCommand _openUpdate;
-        private RelayCommand _deleteAllDBRecords;
-        private string _path;
-
+        public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<CurrentSparePartsLog> AllCurrentSpareParts
         {
             get 
@@ -71,17 +74,6 @@ namespace EngineerKA_1._0.ViewModel
                 NotifyPropertyChanged("AllReceivedSP");
             }
         }
-        public string LoadPath
-        {
-            get
-            {
-                return _path;
-            }
-            set
-            {
-                _path = value;
-            }
-        }
         public ObservableCollection<OutOfStockSpareParts> AllOutOfStock
         {
             get
@@ -96,19 +88,41 @@ namespace EngineerKA_1._0.ViewModel
             }
         }
         public ObservableCollection<CurrentSparePartsLog> NewLog = new ObservableCollection<CurrentSparePartsLog>();
-        public ObservableCollection<CurrentSparePartsLog> SparePartsLog = new ObservableCollection<CurrentSparePartsLog>();
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-
-        //создать контекстное меню.
-        //сделать удаление выделенных элементов через пк мыши
-        //сделать поиск и выделение элентов запроса
-     
-        //поработать над внешним видом 
-
+        public ObservableCollection<CurrentSparePartsLog> SparePartsLog = new ObservableCollection<CurrentSparePartsLog>(); 
+        public string LoadPath
+        {
+            get
+            {
+                return _path;
+            }
+            set
+            {
+                _path = value;
+            }
+        }
+        public CurrentSparePartsLog Selected
+        {
+            get
+            {
+                return _selected;
+            }
+            set
+            {
+                _selected = value;
+                NotifyPropertyChanged("Selected");
+            }
+        }
+        public static int SelectedTab
+        {
+            get
+            {
+                return _indexSelectedTab;
+            }
+            set
+            {
+                _indexSelectedTab = value;
+            }
+        }
         #region OPEN SPARE PARTS WINDOW
         public RelayCommand OpenSpareParts
         {
@@ -193,31 +207,26 @@ namespace EngineerKA_1._0.ViewModel
             updateWindow.ShowDialog();
         }
         #endregion
-        #region DELETE ALL RECORDS IN DB  
-        public RelayCommand DeleteAllDBRecords
+        #region OPEN DELETE WINDOW
+        public RelayCommand OpenDeleteWindow
         {
             get
             {
-                return _deleteAllDBRecords ?? new RelayCommand(obj =>
+                return _openDeleteWindow ?? new RelayCommand(obj =>
                 {
-                    UpdateALLRecordsView();
-                    Remover.RemoveAll(AllCurrentSpareParts, AllReceivedSP, AllAdmissionSpareParts, AllOutOfStock);
-                    UpdateALLRecordsView();
-                    OpenSuccessfullDeleteRecordsWindow();
-                } );
-                
+                    OpenDelWindow();
+                }
+                );
             }
-           
         }
-        private void OpenSuccessfullDeleteRecordsWindow()
+        private void OpenDelWindow()
         {
-            MessageBox.Show
-             (
-               "Все записи текущей таблицы успешно удалены из базы данных !",
-               "Сообщение",
-                MessageBoxButton.OK, MessageBoxImage.Information);
-        }
 
+           
+            DeleteWindow deleteWindow= new DeleteWindow();
+            deleteWindow.Show();
+            
+        }
         #endregion
         #region UPDATE VIEWS                   
         public void UpdateALLRecordsView()                    

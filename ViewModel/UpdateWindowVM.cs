@@ -30,7 +30,7 @@ namespace EngineerKA_1._0.ViewModel
                             MessageBoxHandler.ShowMessageBox("Ошибка загрузки данных из файла!" +
                                                "\nПроверьте корректность указаного пути или содержимого файла! ",
                                                 "Ошибка!",
-                                                MessageBoxButton.OK, MessageBoxImage.Error);
+                                                 MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
                         AddInDb.CompareCollections(AllCurrentSpareParts, NewLog, SparePartsLog, _log);

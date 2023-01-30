@@ -22,9 +22,10 @@ namespace EngineerKA_1._0.View
     public partial class SpareParts : Window
     {
         public static DataGrid CurrentSPView;
-        public static ListView AdmissionSPView;
-        public static ListView ReceivedSPView;
-        public static ListView OutOfStockView;
+        public static DataGrid AdmissionSPView;
+        public static DataGrid ReceivedSPView;
+        public static DataGrid OutOfStockView;
+      
 
 
         public SpareParts()

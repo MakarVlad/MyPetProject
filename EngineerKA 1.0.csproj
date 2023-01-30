@@ -8,14 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\icons\dawnload.png" />
     <None Remove="Images\icons\delete.png" />
+    <None Remove="Images\icons\download.png" />
+    <None Remove="Images\icons\download_txt.png" />
     <None Remove="Images\icons\gear.png" />
+    <None Remove="Images\icons\magnifier.png" />
+    <None Remove="Images\icons\OK.png" />
     <None Remove="Images\icons\search.png" />
     <None Remove="Images\icons\spareparts.png" />
     <None Remove="Images\icons\stats.png" />
     <None Remove="Images\icons\update.png" />
     <None Remove="Images\icons\warehouse.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\icons\OK.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,9 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\icons\dawnload.png" />
+    <Resource Include="Images\icons\download.png" />
     <Resource Include="Images\icons\delete.png" />
+    <Resource Include="Images\icons\download_txt.png" />
     <Resource Include="Images\icons\gear.png" />
+    <Resource Include="Images\icons\magnifier.png" />
     <Resource Include="Images\icons\search.png" />
     <Resource Include="Images\icons\spareparts.png" />
     <Resource Include="Images\icons\stats.png" />

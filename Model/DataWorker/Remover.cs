@@ -1,14 +1,48 @@
-﻿using System;
+﻿using EngineerKA_1._0.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using EngineerKA_1._0.View;
+
 
 namespace EngineerKA_1._0.Model
 {
     public class Remover
     {
-        public static void RemoveAll(ObservableCollection<CurrentSparePartsLog> AllCurrentSpareParts,
+        public static void Remove(bool RemoveAllDBRecords, bool RemoveSelectedTabRecords,
+                                  int IndexSelectedTab)
+        {
+            DataManageVM dataManage = new DataManageVM();
+            if (RemoveAllDBRecords)
+            {
+               
+                RemoveAll(dataManage.AllCurrentSpareParts, dataManage.AllReceivedSP, dataManage.AllAdmissionSpareParts, dataManage.AllOutOfStock);
+            }
+            if(RemoveSelectedTabRecords)
+            {
+                if(IndexSelectedTab == 0)
+                {
+                    RemoveAllCurrentSpareParts(dataManage.AllCurrentSpareParts);
+                }
+                if(IndexSelectedTab == 1)
+                {
+                    RemoveAllAdmissionSpareParts(dataManage.AllAdmissionSpareParts);
+                }
+                if(IndexSelectedTab == 2)
+                {
+                    RemoveAllReceived(dataManage.AllReceivedSP);
+                }
+                if(IndexSelectedTab == 3)
+                {
+                    RemoveAllOutOfStockSpareParts(dataManage.AllOutOfStock);
+                }
+                
+            }
+           
+        }
+        private static void RemoveAll(ObservableCollection<CurrentSparePartsLog> AllCurrentSpareParts,
                               ObservableCollection<ReceivedSpareParts> AllReceivedSP,
                               ObservableCollection<AdmissionSpareParts> AllAdmissionSpareParts,
                               ObservableCollection<OutOfStockSpareParts> AllOutOfStock)
@@ -83,6 +117,7 @@ namespace EngineerKA_1._0.Model
             }
 
         }
+       
     }
 }          
        

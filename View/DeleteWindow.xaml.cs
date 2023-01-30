@@ -10,21 +10,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using EngineerKA_1._0.ViewModel;
-using EngineerKA_1._0.Model;
 
 namespace EngineerKA_1._0.View
 {
     /// <summary>
-    /// Логика взаимодействия для LoadWindow.xaml
+    /// Логика взаимодействия для DeleteWindow.xaml
     /// </summary>
-    public partial class LoadWindow : Window
+    public partial class DeleteWindow : Window
     {
-      
-        public LoadWindow()
+        public DeleteWindow()
         {
-           InitializeComponent();
-           DataContext = new LoadWindowVM();
+            InitializeComponent();
+            DataContext = new DeleteWindowVM();
         }
-
     }
 }

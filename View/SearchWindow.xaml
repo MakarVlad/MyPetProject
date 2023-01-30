@@ -5,20 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineerKA_1._0.View"
         mc:Ignorable="d"
-        Title="ПОИСК" Height="250" Width="350"
-          Background="#8bc9a3">
+        Height="250" Width="350"
+        Background="#8bc9a3" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="Buttons" TargetType="Button">
+            <Grid Name ="btn" Height="45" >
+                <Image Source="{DynamicResource ResourceKey=img}"
+                              Height="35" Width="35" 
+                              HorizontalAlignment="Left" Margin="200,5,0,0"
+                              Stretch="Fill">
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"  Value="True">
+                                    <Setter Property="Cursor" Value="AppStarting" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="TextBox" TargetType="TextBox" >
+            <Border Background="#bac2bd" CornerRadius="3" Padding="2" BorderThickness="1" BorderBrush="Black">
+                <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" HorizontalAlignment="Left" Width="180"
-                  Height="20" Margin="10,10,10,0" Text="{Binding SearchString}" />
-        <Button Grid.Row="0" Height="20" Width="45" Content="ОК"
-                HorizontalAlignment="Left" Margin="150,20,10,10" Command="{Binding SearchButton}"/>
+        <TextBox Grid.Row="0" HorizontalAlignment="Left" Width="180" 
+                  Height="20" Margin="10,10,10,0" Text="{Binding SearchString}" Template="{StaticResource ResourceKey=TextBox}"  >
+        </TextBox>
+        <Button Grid.Row="0" 
+                Command="{Binding SearchButton}" Template="{StaticResource ResourceKey=Buttons}">
+            <Button.Resources>
+                <ImageSource x:Key="img">/Images/icons/magnifier.png</ImageSource>
+            </Button.Resources>
+        </Button>
         <DataGrid Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" x:Name="ViewSearchResult" ItemsSource ="{Binding  SearchResult}"
-                  SelectedItem="{Binding Selected}">
-            <DataGrid.Columns >
+                  SelectedItem="{Binding Selected}" Background="#c3ebd2" RowBackground="#c3ebd2">
+            <DataGrid.Columns>
                
                     <DataGridTextColumn 
                                     Binding="{Binding Path=PartCode}"/>

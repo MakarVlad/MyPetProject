@@ -6,7 +6,7 @@ using System.Text;
 namespace EngineerKA_1._0.ViewModel
 {
      public class CreateGroupWindowVM:DataManageVM
-    {
+     {
         private string _nameGroup;//
         private string _nameSPInGroupContains;//
         private string _codeSPInGroupContains;//
@@ -29,6 +29,6 @@ namespace EngineerKA_1._0.ViewModel
 
             }
         }
-    }
-    }
+     }
+    
 }

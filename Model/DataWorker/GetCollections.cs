@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
@@ -7,6 +8,7 @@ namespace EngineerKA_1._0.Model
 {
      public class GetCollections
      {
+  
         public static ObservableCollection<CurrentSparePartsLog> GetAllCurrentSpareParts()
         {
             ObservableCollection<CurrentSparePartsLog> resultCurrentSP = new ObservableCollection<CurrentSparePartsLog>();

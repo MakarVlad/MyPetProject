@@ -12,8 +12,7 @@ namespace EngineerKA_1._0.ViewModel
 {
 
     public class DataManageVM : INotifyPropertyChanged
-
-    {   
+    { 
         private ObservableCollection<CurrentSparePartsLog> _allCurrentSpareParts = GetCollections.GetAllCurrentSpareParts();
         private ObservableCollection<AdmissionSpareParts> _allAdmissionSpareParts = GetCollections.GetAllAdmissionSpareParts();
         private ObservableCollection<ReceivedSpareParts> _allReceivedSpareParts = GetCollections.GetAllReceivedSP();
@@ -24,6 +23,7 @@ namespace EngineerKA_1._0.ViewModel
         private RelayCommand _openLoadWindow;
         private RelayCommand _openUpdate;
         private RelayCommand _openDeleteWindow;
+        private RelayCommand _openCreateGropWindow; 
         private string _path;
         private static int _indexSelectedTab;
 
@@ -123,6 +123,7 @@ namespace EngineerKA_1._0.ViewModel
                 _indexSelectedTab = value;
             }
         }
+
         #region OPEN SPARE PARTS WINDOW
         public RelayCommand OpenSpareParts
         {
@@ -226,6 +227,27 @@ namespace EngineerKA_1._0.ViewModel
             DeleteWindow deleteWindow= new DeleteWindow();
             deleteWindow.Show();
             
+        }
+        #endregion
+        #region OPEN CREATE GROUP WINDOW
+        public RelayCommand OpenCreateteWindow
+        {
+            get
+            {
+                return _openCreateGropWindow ?? new RelayCommand(obj =>
+                {
+                    OpenCreateGroupWindow();
+                }
+                );
+            }
+        }
+        private void OpenCreateGroupWindow()
+        {
+
+
+            CreateGroupWindow createGroup = new CreateGroupWindow();
+            createGroup.Show();
+
         }
         #endregion
         #region UPDATE VIEWS                   

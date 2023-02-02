@@ -14,7 +14,8 @@ namespace EngineerKA_1._0.Model
 {
      public class FileReader
      {
-        public  static void ReadTxtFile(string _path, string _log, ObservableCollection<CurrentSparePartsLog> SparePartsLog, ObservableCollection<CurrentSparePartsLog> NewLog)
+        public  static void ReadTxtFile(string _path, string _log, ObservableCollection<CurrentSparePartsLog> SparePartsLog,
+                                        ObservableCollection<CurrentSparePartsLog> NewLog)
 
         {
             using ( StreamReader sr = new StreamReader(_path, Encoding.GetEncoding(1251)))
@@ -49,7 +50,6 @@ namespace EngineerKA_1._0.Model
                           }
                           catch (FormatException)
                           { 
-                            InvalidDataLog.WriteInvalidDataInTxtFile(currentSparePartsLog);
                             _skip = true;
                           }
                          

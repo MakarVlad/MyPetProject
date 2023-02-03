@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace EngineerKA_1._0.Model
 {
      public class FileReader
-     {
+    {
         public  static void ReadTxtFile(string _path, string _log, ObservableCollection<CurrentSparePartsLog> SparePartsLog,
                                         ObservableCollection<CurrentSparePartsLog> NewLog)
 
@@ -24,7 +24,7 @@ namespace EngineerKA_1._0.Model
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                        CurrentSparePartsLog currentSparePartsLog = new CurrentSparePartsLog();
+                    CurrentSparePartsLog currentSparePartsLog = new CurrentSparePartsLog();
                         bool _skip = false;
                         dataLine = line.Split('\t');
                         if ( dataLine[0] != "")

@@ -26,7 +26,7 @@ namespace EngineerKA_1._0.ViewModel
                     {
                         try
                         {
-                            FileReader.ReadTxtFile(LoadPath, _log, SparePartsLog, NewLog);
+                            FileReader.ReadTxtFile(@LoadPath, _log, SparePartsLog, NewLog);
                         }
                         catch (FileNotFoundException)
                         {
@@ -34,6 +34,14 @@ namespace EngineerKA_1._0.ViewModel
                                               "\nПроверьте корректность указаного пути или содержимого файла! ",
                                                "Ошибка!",
                                                MessageBoxButton.OK , MessageBoxImage.Error);
+                            return;
+                        }
+                        catch (DirectoryNotFoundException)
+                        {
+                            MessageBoxHandler.ShowMessageBox("Ошибка загрузки данных из файла!" +
+                                              "\nНе удалось найти указанную директорию! ",
+                                               "Ошибка!",
+                                               MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
                         AddInDb.CompareCollections(AllCurrentSpareParts, NewLog, SparePartsLog, _log);

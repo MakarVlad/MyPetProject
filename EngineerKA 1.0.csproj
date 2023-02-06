@@ -19,6 +19,8 @@
     <None Remove="Images\icons\stats.png" />
     <None Remove="Images\icons\update.png" />
     <None Remove="Images\icons\warehouse.png" />
+    <None Remove="Model\Data\Test\test1.txt" />
+    <None Remove="Model\Data\Test\test2.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +46,8 @@
     <Resource Include="Images\icons\stats.png" />
     <Resource Include="Images\icons\update.png" />
     <Resource Include="Images\icons\warehouse.png" />
+    <Resource Include="Model\Data\Test\test1.txt" />
+    <Resource Include="Model\Data\Test\test2.txt" />
   </ItemGroup>
 
 </Project>

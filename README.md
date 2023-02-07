@@ -8,6 +8,7 @@ ________
 ![Image alt](https://github.com/MakarVlad/MyPetProject/blob/master/Images/SparePartsWindow.png)
 
 В появившемся окне необходимо выбрать раздел "Загрузить" и прописать полный путь до файла test1.txt(находиться в папке Data\Test проекта)
+
 ![Image alt](https://github.com/MakarVlad/MyPetProject/blob/master/Images/LoadFile.png)
 
 После нажатия на кнопку с логотипом TXT данные из файла будут загруженны в базу данных и отображенны во вкладке "В НАЛИЧИИ"
